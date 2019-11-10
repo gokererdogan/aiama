@@ -123,6 +123,7 @@ if __name__ == "__main__":
     initialGrid = list(range(9))
     random.shuffle(initialGrid)
     initialState = EightPuzzleState(initialGrid)
+    print('Initial state:', initialState)
 
     operators = [
         Operator("Move Blank Left", move_blank_left),
@@ -136,8 +137,11 @@ if __name__ == "__main__":
     # node = problem.depth_limited_search(5)
     print('Without heuristic functions')
     node = problem.breadth_first_search()
-    for n in problem.get_solution_path(node):
-        print(n)
+    if node is None:
+        print('Could not find a solution.')
+    else:
+        for n in problem.get_solution_path(node):
+            print(n)
     print()
 
     problem = SearchProblem(initialState, operators, eight_puzzle_goal_test, None,
@@ -145,5 +149,8 @@ if __name__ == "__main__":
 
     print('With heuristic functions')
     node = problem.iterative_deepening_a_star_search()
-    for n in problem.get_solution_path(node):
-        print(n)
+    if node is None:
+        print('Could not find a solution.')
+    else:
+        for n in problem.get_solution_path(node):
+            print(n)
